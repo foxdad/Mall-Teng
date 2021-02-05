@@ -1,16 +1,24 @@
 package com.lt.user.controller;
 
 
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
 import com.lt.common.Result;
 import com.lt.user.entity.vo.RegistryVo;
+import com.lt.user.utils.CodeUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.awt.image.BufferedImage;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 
 /**
  * <p>
@@ -34,6 +42,42 @@ public class UserController {
 
         return null;
     }
+    @ApiOperation("生成二维码")
+    @GetMapping(value = "/login-code")
+    public void test(int type , HttpServletResponse response) throws Exception{
+        // 设置响应流信息
+        response.setContentType("image/jpg");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setDateHeader("Expires", 0);
+
+        OutputStream stream = response.getOutputStream();
+        //type是1，生成活动详情、报名的二维码，type是2，生成活动签到的二维码
+        String content = (type == 1 ? "http://www.baidu.com" : "http://www.jd.com");
+        //获取一个二维码图片
+        BitMatrix bitMatrix = CodeUtils.createCode(content);
+//        System.out.println(Base64.encodeBase64String(bitMatrix.toString().getBytes(StandardCharsets.UTF_8)));
+        //以流的形式输出到前端
+        MatrixToImageWriter.writeToStream(bitMatrix , "jpg" , stream);
+//        BufferedImage bufferedImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
+//        InputStream is= com.lt.user.utils.MatrixToImageWriter.toInputStream(bufferedImage);
+//        String imageStr = com.lt.user.utils.MatrixToImageWriter.getImageStr(is);
+//        System.out.println(imageStr);
+    }
+
+
+    /**
+     * 根据tocken获取用户信息
+     * @return
+     */
+    @ApiOperation("根据tocken获取用户信息")
+    @GetMapping("/getUserInfo")
+    public Result<Object> getUserInfo (HttpServletRequest request) {
+
+        return null;
+    }
+
+
 
 
 }
