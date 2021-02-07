@@ -2,6 +2,7 @@ package com.lt.user.service;
 
 import com.lt.user.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lt.user.entity.vo.RegistryVo;
 
 /**
  * <p>
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface UserService extends IService<User> {
 
+    boolean register(RegistryVo registryVo);
 }

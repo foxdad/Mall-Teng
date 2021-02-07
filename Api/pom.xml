@@ -16,6 +16,8 @@
         <module>Stock</module>
         <module>Order</module>
         <module>User</module>
+        <module>Sms</module>
+        <module>Mail</module>
     </modules>
 
     <properties>
