@@ -18,7 +18,7 @@ import javax.annotation.PostConstruct;
 //读取的配置文件
 @PropertySource(value = "sms.properties")
 @Data
-public class SmsConfig {
+public class SmsConfigProperties {
 
 
     private  String ACCESS_KEY_ID;

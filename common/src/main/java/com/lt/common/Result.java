@@ -35,6 +35,9 @@ public class Result<T> implements Serializable {
     public Result success(T data) {
         return new Result(ResultEnum.Success.getCode(), ResultEnum.Success.getMessage(), data);
     }
+    public Result success() {
+        return new Result(ResultEnum.Success.getCode(), ResultEnum.Success.getMessage(), null);
+    }
 
 
     /**
@@ -43,6 +46,15 @@ public class Result<T> implements Serializable {
      */
     public Result filed () {
         return new Result(ResultEnum.Filed.getCode(), ResultEnum.Filed.getMessage());
+    }
+
+    /**
+     * 请求失败还是带失败消息
+     * @param message
+     * @return
+     */
+    public Result filed (String message) {
+        return new Result(ResultEnum.Filed.getCode(), message);
     }
     /**
      * 提示消息

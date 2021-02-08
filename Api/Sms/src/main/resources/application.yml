@@ -1,0 +1,8 @@
+server:
+  port: 20020
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: sms-server

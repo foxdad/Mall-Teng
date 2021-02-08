@@ -9,7 +9,9 @@ import lombok.Data;
  */
 public enum ResultEnum {
 
-    Success(20000,"成功"),Filed(20001,"失败"),FiledParameter(20002,"验证参数错误");
+    Success(20000,"成功"),
+    Filed(20001,"失败"),
+    FiledParameter(20002,"验证参数错误");
 
     private int code;
 

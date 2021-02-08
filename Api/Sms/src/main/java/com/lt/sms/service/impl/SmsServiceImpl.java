@@ -1,19 +1,15 @@
 package com.lt.sms.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.aliyuncs.CommonRequest;
-import com.aliyuncs.CommonResponse;
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsRequest;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
-import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
-import com.aliyuncs.profile.IClientProfile;
 import com.lt.sms.service.SmsService;
-import com.lt.sms.utils.SmsConfig;
+import com.lt.sms.utils.SmsConfigProperties;
 import com.lt.sms.utils.SmsConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -31,10 +27,10 @@ public class SmsServiceImpl implements SmsService {
     @Override
     public Boolean send(String phone, Map<String, Integer> code) {
         DefaultProfile profile =
-                DefaultProfile.getProfile(SmsConfig.regionId, SmsConfig.accessKeyId,SmsConfig.accessKeySecret);
+                DefaultProfile.getProfile(SmsConfigProperties.regionId, SmsConfigProperties.accessKeyId, SmsConfigProperties.accessKeySecret);
 
         try {
-            DefaultProfile.addEndpoint(SmsConfig.endpointName, SmsConfig.regionId, SmsConfig.product, SmsConfig.defaultDomain );
+            DefaultProfile.addEndpoint(SmsConfigProperties.endpointName, SmsConfigProperties.regionId, SmsConfigProperties.product, SmsConfigProperties.defaultDomain );
         } catch (ClientException e) {
             e.printStackTrace();
         }
@@ -49,8 +45,8 @@ public class SmsServiceImpl implements SmsService {
         //可以抽取出来到全局配置里面去
 
         request.setPhoneNumbers(phone);
-        request.setSignName(SmsConfig.signName);
-        request.setTemplateCode(SmsConfig.templateCode);
+        request.setSignName(SmsConfigProperties.signName);
+        request.setTemplateCode(SmsConfigProperties.templateCode);
         request.setTemplateParam(JSONObject.toJSONString(code));
         try {
             SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
