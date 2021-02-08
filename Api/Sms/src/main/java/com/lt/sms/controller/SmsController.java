@@ -9,6 +9,7 @@ import com.lt.sms.enums.SmsResultMessageEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
@@ -36,17 +37,18 @@ public class SmsController {
     SmsService smsService;
 
     @Autowired
-    StringRedisTemplate redisTemplate;
+    RedisTemplate<String,String> redisTemplate;
 
     /**
      * 发送短信接口
+     * TODO  没有考虑同一时间短信过期的现象
+     * TODO  没有添加限流组件
      * @param phone
      * @return
      */
     @ApiOperation("发送短信接口")
     @GetMapping("/send/{phone}")
     public Result<Object> send (@PathVariable("phone")@NotNull(message = "bad request") String phone) {
-
         String code  = redisTemplate.opsForValue().get(SmsConstant.SMS_PREFIX_KEY + phone);
         //判断验证码有限期是否是五分钟内的时间
         if (StringUtils.hasText(code)) {

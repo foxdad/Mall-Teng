@@ -2,6 +2,7 @@ package com.lt.sms;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @author xiaohu
@@ -10,6 +11,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
  * @date 2021/2/7 21:13
  */
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+
 public class SmsApplication {
     public static void main(String[] args) {
 

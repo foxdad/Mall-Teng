@@ -1,6 +1,7 @@
-package com.lt.sms.utils;
+package com.lt.sms.config;
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
@@ -16,10 +17,9 @@ import javax.annotation.PostConstruct;
 //读取配置文件的前缀
 @ConfigurationProperties(prefix = "sms")
 //读取的配置文件
-@PropertySource(value = "sms.properties")
+@PropertySource(value = "sms.properties",encoding = "UTF-8")
 @Data
 public class SmsConfigProperties {
-
 
     private  String ACCESS_KEY_ID;
     private String ACCESS_KEY_SECRET;
@@ -48,9 +48,9 @@ public class SmsConfigProperties {
     public void setData() {
         accessKeyId = ACCESS_KEY_ID;
         accessKeySecret = ACCESS_KEY_SECRET;
-        ENDPOINT = endpoint;
-        SIGN_NAME = signName;
-        TEMPLATE_CODE = templateCode;
+        endpoint = ENDPOINT;
+        signName = SIGN_NAME;
+        templateCode = TEMPLATE_CODE;
         regionId = REGION_ID;
         endpointName = ENDPOINT_NAME;
         product = PRODUCT;

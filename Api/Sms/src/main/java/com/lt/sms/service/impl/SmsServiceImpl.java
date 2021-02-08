@@ -9,7 +9,7 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.lt.sms.service.SmsService;
-import com.lt.sms.utils.SmsConfigProperties;
+import com.lt.sms.config.SmsConfigProperties;
 import com.lt.sms.utils.SmsConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
